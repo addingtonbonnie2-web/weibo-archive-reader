@@ -14,18 +14,19 @@
 
 ## 三步开始（Windows，双击就行）
 
-> 第 4 个 BAT 是发布用的，跟着做一遍就能把仓库推上去。
-
 | 顺序 | 双击 | 作用 |
 |---|---|---|
 | 0 | `0-环境检查.bat` | 检查 Python 和依赖是否已安装（可选） |
 | 1 | `1-安装依赖.bat` | 安装 flask / pillow / jieba |
 | 2 | `2-生成示例数据.bat` | 生成 20 条假数据，先看界面 |
 | 3 | `3-启动阅读器.bat` | 启动服务并打开浏览器 |
-| 4 | `4-上传到GitHub.bat` | 推到你的 GitHub 仓库（可选）；也可以带参数跑：`4-上传到GitHub.bat <仓库URL> <用户名> <邮箱>` |
 
 > 没装 Python？到 <https://www.python.org/downloads/> 下载 3.9 以上版本，
 > 安装时勾选 "Add python.exe to PATH"。
+
+> 想把这份代码放到自己的 GitHub 仓库？在网页上新建一个空仓库，然后
+> `git init && git add -A && git commit -m init && git push` 就行。
+> 仓库里没有附自动上传脚本：发布是一次性动作，不必每个下载的人都跟着做一遍。
 
 命令行等价操作：
 
