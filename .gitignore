@@ -1,0 +1,19 @@
+# 配置与数据（含个人隐私，别提交）
+config.py
+data/
+fonts.json
+*.db
+*.db-wal
+*.db-shm
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.idea/
+.vscode/
+
+# 系统
+.DS_Store
+Thumbs.db

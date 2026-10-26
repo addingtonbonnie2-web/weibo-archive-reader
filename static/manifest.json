@@ -1,0 +1,15 @@
+{
+  "name": "微博归档阅读器",
+  "short_name": "微博归档",
+  "description": "本地微博归档阅读器：时间线、年鉴、年度报告、收藏",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f6f7fb",
+  "theme_color": "#e6162d",
+  "icons": [
+    { "src": "/static/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/static/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}
