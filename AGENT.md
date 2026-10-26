@@ -66,6 +66,7 @@ source, attitudes_count, retweet_id, ...)`、`comments(...)`、`reposts(...)`。
 | `ModuleNotFoundError: flask` | 没装依赖，跑 `pip install -r requirements.txt` |
 | 页面空白、没有卡片 | `DATA_DIR` 里没有 `weibo.db`，先跑 `tools/make_demo_db.py` |
 | 端口被占用 | 改 `config.py` 里的 `PORT` |
+| `Failed to connect to github.com:443 over proxy 127.0.0.1` | git 配了代理但代理没启动。看 `git config --global --get http.proxy`，用 `git config --global --unset http.proxy` 和 `--unset https.proxy` 清掉，或先把代理软件打开 |
 | 控制台中文乱码 | 终端编码不是 GBK / UTF-8，Windows 下用 `chcp 936` 或 `chcp 65001` |
 | 图片全是“图片未下载” | `DATA_ROOT` 没配，或目录名与 `user.nick_name` 不一致 |
 

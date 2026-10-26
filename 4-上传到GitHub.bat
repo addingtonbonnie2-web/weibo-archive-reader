@@ -124,10 +124,13 @@ goto end
 :pushfail
 echo.
 echo [X] Push failed. Likely causes:
-echo     - the repository does not exist yet; create it on GitHub first
-echo       New repository - name weibo-archive-reader - Public - do not add README
-echo     - wrong URL
-echo     - not logged in; retry and finish the browser login
+echo     1^) a proxy is configured but not running
+echo        check:  git config --global --get http.proxy
+echo        fix  :  git config --global --unset http.proxy
+echo                git config --global --unset https.proxy
+echo     2^) the repository does not exist yet; create it on GitHub first
+echo        New repository - name weibo-archive-reader - Public - do not add README
+echo     3^) wrong URL, or not logged in; retry and finish the browser login
 goto end
 
 :end
