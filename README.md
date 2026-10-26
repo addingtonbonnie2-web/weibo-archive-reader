@@ -4,6 +4,9 @@
 渲染成能在浏览器里翻的站点：时间线、全文搜索、年鉴、互动图谱、年度报告、收藏、体检、导出、手机访问。
 数据存在本地的 SQLite 里，服务不联网。
 
+**适合谁**：准备删号但想留档的、想多年以后翻回来看的、想把某段记录整理好给别人的。
+不适合当社交产品用——它只读，不能发微博，也不替你上传任何东西。
+
 > 本项目基于 [kyuumm/WeiboArchive](https://github.com/kyuumm/WeiboArchive)（MIT）修改，
 > 后者源自 [YaoZeyuan/stablog](https://github.com/YaoZeyuan/stablog)（MIT）。原始界面与数据结构来自这两位作者。
 
@@ -34,6 +37,34 @@ python run.py
 
 打开 <http://127.0.0.1:5055> 就能看到界面。
 
+## 界面
+
+下面全部是 `tools/make_demo_db.py` 生成的**假数据**，没有使用任何真实微博内容。
+
+外观可以逐项调：26 种卡片主题、字体（含本地字体）、字号、内容宽度。下面是切换主题的样子：
+
+![主题切换](docs/screenshots/theme-switch.gif)
+
+时间线：卡片排版，图片按原比例显示，右侧是年份/月份导航之外的固定侧栏。
+
+![时间线](docs/screenshots/timeline.jpg)
+
+年度报告：月度分布、24 小时时段分布、最热微博、高频词云。
+
+![年度报告](docs/screenshots/report.jpg)
+
+年鉴：按月归档，顶部是这一年的统计（总条数、原创、转发、获赞……）。
+
+![年鉴](docs/screenshots/yearbook.jpg)
+
+外观：26 种网页背景 × 25 种卡片风格可以自由混搭，也可以锁定成同一套。下图是「科技」主题。
+
+![科技主题](docs/screenshots/theme-tech.jpg)
+
+手机：`HOST` 改成 `0.0.0.0` 后同一 WiFi 直接打开，支持添加到主屏。
+
+<img src="docs/screenshots/mobile.jpg" width="320" alt="手机端">
+
 ## 换成你自己的数据
 
 阅读器读 weibo-crawler 的 SQLite 库，用到 `user` / `weibo` / `comments` / `reposts` 四张表。
@@ -49,6 +80,42 @@ python run.py
 3. 把 `weibo.db` 放进 `DATA_DIR`，双击 `3-启动阅读器.bat`
 
 图片目录名要和 `user.nick_name` 一致，爬虫默认就是这么存的。
+
+## 数据从哪来（weibo-crawler）
+
+阅读器自己不抓微博，数据来自 [weibo-crawler](https://github.com/dataabc/weibo-crawler)。
+安装和参数说明以它的 README 为准，这里只写和本文档衔接的部分。
+
+1. 在爬虫的 `config.json` 里至少确认四项：
+
+   | 字段 | 填什么 |
+   |---|---|
+   | `user_id_list` | 要备份的账号 **uid**（数字，不是昵称） |
+   | `cookie` | 浏览器登录微博后的 Cookie |
+   | `output_directory` | 产出目录，默认 `MyWeiboArchive` |
+   | `write_mode` | **必须包含 `sqlite`**，否则不会生成 `weibo.db` |
+
+2. 跑一次爬虫，产出大致长这样：
+
+   ```
+   MyWeiboArchive/
+   ├── weibo.db              ← 阅读器要的就是这个文件
+   ├── users.csv
+   ├── <昵称>/img/…          ← 主账号的图片
+   └── <uid>/…               ← 转发原帖作者的头像和图片
+   ```
+
+3. 把 `weibo.db` 复制到阅读器的 `DATA_DIR`，`DATA_ROOT` 指向上面的 `MyWeiboArchive`。
+
+几个容易踩的点：
+
+- `download_comment = 1` 会让抓取明显变慢（每条微博都要多请求一次）；只想先看正文可以先关掉
+- `incremental_mode = 1` 建议开启，第二次跑只补新增，不会重抓整库
+- `cookie` 会过期。过期后爬虫报错或返回空，从浏览器重新复制一次即可
+- 账号目录名可能是昵称也可能是 uid（`user_id_as_folder_name` 控制），阅读器两种都认
+
+不想装爬虫也行：只要 `weibo.db` 里有 `user` / `weibo` / `comments` / `reposts` 四张表，
+放进 `DATA_DIR` 就能读，字段含义见 [AGENT.md](AGENT.md)。
 
 ## 想放到手机上 / 平板上看
 
@@ -109,9 +176,11 @@ weibo-archive-reader/
 │   ├── render.py          单条微博与卡片渲染
 │   ├── views.py           年鉴 / 报告 / 图谱 / 体检 / 合集
 │   └── routes.py          Flask 应用与全部接口
+├── docs/screenshots/      界面截图（演示数据）
 ├── static/                app.css / app.js / manifest / 图标
 └── tools/
     ├── make_demo_db.py    生成示例库
+    ├── make_theme_gif.py  重新生成主题切换动图（需本机 Chrome）
     └── fetch_emoji.py     抓取表情图（可选）
 ```
 

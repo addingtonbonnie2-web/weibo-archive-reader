@@ -24,6 +24,7 @@
 cd <仓库目录>
 pip install -r requirements.txt
 python tools/make_demo_db.py      # 生成 data/weibo.db，20 条假数据
+python tools/make_theme_gif.py    # 重新生成主题切换动图（需 Chrome/Edge）
 python run.py                     # 监听 127.0.0.1:5055
 ```
 
