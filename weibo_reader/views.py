@@ -163,7 +163,7 @@ def view_yearbook(user_id, nick, users, users_map, year, month, q, page):
     def _stat(num, label, ftype="", sub=0):
         tip = f"点击查看「{label}」对应的微博"
         if sub:
-            tip = f"共 {num} 条，其中{label} {sub} 条，点击查看"
+            tip = f"{label}共 {num}，来自 {sub} 条微博，点击查看"
         return (
             f'<a class="yb-stat" href="{_stat_href(ftype)}" title="{tip}">'
             f'<div class="n">{num}</div><div class="l">{label}</div></a>'
