@@ -340,7 +340,7 @@ document.getElementById('fontF').addEventListener('change', function(){
 document.getElementById('bgFile').addEventListener('change', function(){
   var file = this.files[0];
   if (!file) return;
-  if (file.size > 10*1024*1024) { alert('图片不能超过 10MB'); return; }
+  if (file.size > 10*1024*1024) { alert('图片太大，请选择 10MB 以内的图片'); return; }
   var fd = new FormData();
   fd.append('file', file);
   fetch('/api/upload_bg', {method:'POST', body:fd})
