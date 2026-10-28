@@ -112,7 +112,7 @@ python run.py
 
 - `download_comment = 1` 会让抓取明显变慢（每条微博都要多请求一次）；只想先看正文可以先关掉
 - `incremental_mode = 1` 建议开启，第二次跑只补新增，不会重抓整库
-- `cookie` 会过期。过期后爬虫报错或返回空，从浏览器重新复制一次即可
+- `cookie` 会过期，实测大约 3 天。典型症状是爬虫反复打印 `Expecting value: line 1 column 1 (char 0)`：不是数据坏了，是未登录时接口返回整页 HTML，解析失败。重新复制一次 Cookie 即可（想先确认，请求 `https://m.weibo.cn/api/config`，看到 `"login":false` 就是过期了）
 - 账号目录名可能是昵称也可能是 uid（`user_id_as_folder_name` 控制），阅读器两种都认
 
 不想装爬虫也行：只要 `weibo.db` 里有 `user` / `weibo` / `comments` / `reposts` 四张表，

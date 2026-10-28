@@ -70,6 +70,7 @@ source, attitudes_count, retweet_id, ...)`、`comments(...)`、`reposts(...)`。
 | `Failed to connect to github.com:443 over proxy 127.0.0.1` | git 配了代理但代理没启动。看 `git config --global --get http.proxy`，用 `git config --global --unset http.proxy` 和 `--unset https.proxy` 清掉，或先把代理软件打开 |
 | 控制台中文乱码 | 终端编码不是 GBK / UTF-8，Windows 下用 `chcp 936` 或 `chcp 65001` |
 | 图片全是“图片未下载” | `DATA_ROOT` 没配，或目录名与 `user.nick_name` 不一致 |
+| 爬虫反复报 `Expecting value: line 1 column 1 (char 0)` | Cookie 过期。未登录时 `m.weibo.cn` 回的是 HTML 不是 JSON，所以 `response.json()` 抛这个错。请求 `https://m.weibo.cn/api/config` 验证：`data.login` 为 `false` 即过期，重新取 Cookie 填回 `config.json` |
 
 ## 不要做的事
 
